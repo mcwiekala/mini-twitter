@@ -77,9 +77,4 @@ class UserSpec extends Specification {
         expect bob.getNewsFeed(), not(hasItem(tweetNotVisibleForBob))
     }
 
-    def "Test A"(){
-        // Always fail
-        expect: false
-    }
-
 }
