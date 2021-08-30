@@ -6,4 +6,6 @@ Developed with TDD approach.
 ## Technologies
 * Java 11
 * Spock (Groovy)
+* Hamcrest
+* Lombok
 * Maven

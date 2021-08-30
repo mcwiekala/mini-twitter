@@ -11,8 +11,8 @@ import java.util.UUID;
 @Getter
 class Tweet {
 
-    private UUID uuid;
-    private UUID authorID;
+    private final UUID uuid;
+    private final UUID authorID;
     private String authorName;
     private String text;
 
