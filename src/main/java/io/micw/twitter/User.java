@@ -1,6 +1,7 @@
 package io.micw.twitter;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 
 @Data
 @Slf4j
+@Getter
 class User {
 
     static final String DELIMITER = ", ";
@@ -39,20 +41,20 @@ class User {
     }
 
     void likeUser(User user) {
-        usersToFollow(user);
+        followUser(user);
         user.registerFollower(this);
     }
 
     void unlikeUser(User user) {
-        usersToUnfollow(user);
+        unfollowUser(user);
         user.unregisterFollower(this);
     }
 
-    void usersToFollow(User user) {
+    void followUser(User user) {
         usersToFollow.add(user);
     }
 
-    void usersToUnfollow(User user) {
+    void unfollowUser(User user) {
         usersToFollow.remove(user);
     }
 

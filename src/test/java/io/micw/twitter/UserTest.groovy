@@ -15,14 +15,14 @@ class UserTest extends Specification {
         bob.likeUser(ann)
         bob.likeUser(kate)
         then:
-        bob.followers.size() == 0
-        bob.usersToFollow.size() == 2
-        bob.usersToFollow.contains(ann)
-        bob.usersToFollow.contains(kate)
-        kate.followers.size() == 1
-        kate.usersToFollow.size() == 0
-        ann.followers.size() == 1
-        ann.usersToFollow.size() == 0
+        bob.getFollowers().size() == 0
+        bob.getUsersToFollow().size() == 2
+        bob.getUsersToFollow().contains(ann)
+        bob.getUsersToFollow().contains(kate)
+        kate.getFollowers().size() == 1
+        kate.getUsersToFollow().size() == 0
+        ann.getFollowers().size() == 1
+        ann.getUsersToFollow().size() == 0
     }
 
     def "Bob not like Ann anymore"() {
@@ -30,14 +30,14 @@ class UserTest extends Specification {
         bob.likeUser(ann)
         bob.likeUser(kate)
         expect:
-        that bob.usersToFollow, hasItem(ann)
-        that bob.usersToFollow, hasItem(kate)
+        that bob.getUsersToFollow(), hasItem(ann)
+        that bob.getUsersToFollow(), hasItem(kate)
         when:
         bob.unlikeUser(ann)
         then:
-        expect bob.usersToFollow, hasSize(1)
-        expect bob.usersToFollow, not(hasItem(ann))
-        expect bob.usersToFollow, hasItem(kate)
+        expect bob.getUsersToFollow(), hasSize(1)
+        expect bob.getUsersToFollow(), not(hasItem(ann))
+        expect bob.getUsersToFollow(), hasItem(kate)
     }
 
     def "Ann writes some tweets"() {
@@ -47,33 +47,33 @@ class UserTest extends Specification {
         Tweet tweet3 = ann.writeTweet("IS")
         Tweet tweet4 = ann.writeTweet("ME! ;)")
         then:
-        expect ann.newsFeed, hasSize(4)
-        expect ann.newsFeed, hasItem(tweet1)
-        expect ann.newsFeed, hasItem(tweet2)
-        expect ann.newsFeed, hasItem(tweet3)
-        expect ann.newsFeed, hasItem(tweet4)
+        expect ann.getNewsFeed(), hasSize(4)
+        expect ann.getNewsFeed(), hasItem(tweet1)
+        expect ann.getNewsFeed(), hasItem(tweet2)
+        expect ann.getNewsFeed(), hasItem(tweet3)
+        expect ann.getNewsFeed(), hasItem(tweet4)
     }
 
     def "Bob follows Ann and Kate messages"() {
         given:
         bob.likeUser(ann)
         expect:
-        that bob.newsFeed, hasSize(0)
+        that bob.getNewsFeed(), hasSize(0)
         when:
         bob.writeTweet("Hello World! It's Bob!")
         ann.writeTweet("Hello I'm Ann")
         ann.writeTweet("Ups I did it again!")
         bob.writeTweet("I like F1!! #Verstappen")
         then:
-        println bob.newsFeed
-        expect bob.newsFeed, hasSize(4)
+        println bob.getNewsFeed()
+        expect bob.getNewsFeed(), hasSize(4)
         when: 'Bob started to follow Kate'
         Tweet tweetNotVisibleForBob = kate.writeTweet("Hi this is Kate!")
         bob.likeUser(kate)
         Tweet tweetVisibleForBob = kate.writeTweet("I like cats!")
         then: 'there is 5 messages! The first message from kate is not on Bob\' feed'
-        expect bob.newsFeed, hasSize(5)
-        expect bob.newsFeed, hasItem(tweetVisibleForBob)
-        expect bob.newsFeed, not(hasItem(tweetNotVisibleForBob))
+        expect bob.getNewsFeed(), hasSize(5)
+        expect bob.getNewsFeed(), hasItem(tweetVisibleForBob)
+        expect bob.getNewsFeed(), not(hasItem(tweetNotVisibleForBob))
     }
 }
