@@ -4,7 +4,7 @@ import spock.lang.Specification
 import static org.hamcrest.Matchers.*
 import static spock.util.matcher.HamcrestSupport.*
 
-class UserTest extends Specification {
+class UserSpec extends Specification {
 
     User bob = new User("Bob");
     User ann = new User("Ann");
@@ -76,4 +76,10 @@ class UserTest extends Specification {
         expect bob.getNewsFeed(), hasItem(tweetVisibleForBob)
         expect bob.getNewsFeed(), not(hasItem(tweetNotVisibleForBob))
     }
+
+    def "Test A"(){
+        // Always fail
+        expect: false
+    }
+
 }
