@@ -4,6 +4,6 @@ jdk:
   - oraclejdk11
 
 install:
-  - mvn install -Dmaven.javadoc.skip=true -B -V
+  - ./mvnw install -Dmaven.javadoc.skip=true -B -V
 script:
-  - mvn test -B
+  - ./mvnw test
